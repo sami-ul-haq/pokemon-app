@@ -7,11 +7,20 @@ const pokemonReducer = (state, action) => {
       };
 
     case "GET_POKEMON":
+      console.log(action.payload)
       return {
         ...state,
         isLoading: false,
-        data: action.payload,
+        data: action.payload.results,
+        nextPage: action.payload.next,
+        previousPage: action.payload.previous
       };
+      case "GET_POKEMON_BY_NAME":
+        console.log(action.payload)
+        return {
+          ...state,
+          pokemonByName: action.payload
+        };
     case "LOADING_FAILED":
       return {
         ...state,
