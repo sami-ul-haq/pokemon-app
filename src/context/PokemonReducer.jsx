@@ -7,25 +7,35 @@ const pokemonReducer = (state, action) => {
       };
 
     case "GET_POKEMON":
-      console.log(action.payload)
       return {
         ...state,
         isLoading: false,
         data: action.payload.results,
         nextPage: action.payload.next,
-        previousPage: action.payload.previous
+        previousPage: action.payload.previous,
       };
-      case "GET_POKEMON_BY_NAME":
-        console.log(action.payload)
-        return {
-          ...state,
-          pokemonByName: action.payload
-        };
+    case "GET_POKEMON_BY_NAME":
+      return {
+        ...state,
+        pokemonByName: action.payload,
+        isLoading: false,
+      };
     case "LOADING_FAILED":
       return {
         ...state,
         isLoading: false,
         error: action.payload,
+      };
+    case "PREVIOUS_PAGE":
+      return {
+        ...state,
+        previousPage: action.payload,
+      };
+
+    case "NEXT_PAGE":
+      return {
+        ...state,
+        nextPage: action.payload,
       };
     default:
       return state;

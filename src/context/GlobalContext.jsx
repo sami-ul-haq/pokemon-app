@@ -54,9 +54,24 @@ const PokemonContextProvider = ({ children }) => {
     }
   }
 
+  // const goNextPage = () => {
+  //   return dispatch({
+  //     type: "NEXT_PAGE",
+  //     payload: state.nextPage
+  //   })
+  // }
+
+  // const goPreviousPage = () => {
+  //   return dispatch({
+  //     type: "PREVIOUS_PAGE",
+  //     payload: state.previousPage
+  //   })
+  // }
+
+
   useEffect(() => {
     FetchPokemons();
-  }, []);
+  }, [state.nextPage]);
 
   return (
     <PokemonContext.Provider value={{ ...state , fetchPokemonByName}}>
