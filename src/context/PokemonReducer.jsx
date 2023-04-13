@@ -29,13 +29,15 @@ const pokemonReducer = (state, action) => {
     case "PREVIOUS_PAGE":
       return {
         ...state,
-        previousPage: action.payload,
+        API_URL: action.payload,
       };
 
     case "NEXT_PAGE":
+      console.log(action)
       return {
         ...state,
-        nextPage: action.payload,
+        API_URL: state.nextPage,
+        // previousPage: state.API_URL
       };
     default:
       return state;

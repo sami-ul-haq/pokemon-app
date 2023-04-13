@@ -1,33 +1,32 @@
 import { createContext, useContext, useEffect, useReducer } from "react";
 import pokemonReducer from "./PokemonReducer";
 
-const API_URL = "https://pokeapi.co/api/v2/pokemon";
-
 const InitialState = {
+  API_URL : "https://pokeapi.co/api/v2/pokemon",
   isLoading: true,
   data: [],
-  pokemonByName: {},
-  error: "",
+  pokemonByName: "",
+  error: "No Pokemon Found",
   nextPage: "",
-  previousPage:""
+  previousPage: "",
 };
 
 export const PokemonContext = createContext();
 
 const PokemonContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(pokemonReducer, InitialState);
+  console.log(state)
 
   const FetchPokemons = async () => {
     try {
       dispatch({ type: "IS_LOADING" });
-      const response = await fetch(API_URL);
+      const response = await fetch(state.API_URL);
       const data = await response.json();
       dispatch({
         type: "GET_POKEMON",
-        payload: data
+        payload: data,
       });
     } catch (error) {
-      console.log(error);
       dispatch({
         type: "LOADING_FAILED",
         payload: error,
@@ -38,12 +37,12 @@ const PokemonContextProvider = ({ children }) => {
   const fetchPokemonByName = async (url) => {
     try {
       dispatch({ type: "IS_LOADING" });
-      const response = await fetch(`${API_URL}/${url}`);
+      const response = await fetch(`${state.API_URL}/${url}`);
       const data = await response.json();
       console.log(data);
       dispatch({
         type: "GET_POKEMON_BY_NAME",
-        payload: data
+        payload: data,
       });
     } catch (error) {
       console.log(error);
@@ -52,29 +51,28 @@ const PokemonContextProvider = ({ children }) => {
         payload: error,
       });
     }
+  };
+
+  const goNextPage = () => {
+    return dispatch({
+      type: "NEXT_PAGE",
+      payload: state.nextPage
+    })
   }
 
-  // const goNextPage = () => {
-  //   return dispatch({
-  //     type: "NEXT_PAGE",
-  //     payload: state.nextPage
-  //   })
-  // }
-
-  // const goPreviousPage = () => {
-  //   return dispatch({
-  //     type: "PREVIOUS_PAGE",
-  //     payload: state.previousPage
-  //   })
-  // }
-
+  const goPreviousPage = () => {
+    return dispatch({
+      type: "PREVIOUS_PAGE",
+      payload: state.previousPage
+    })
+  }
 
   useEffect(() => {
     FetchPokemons();
-  }, [state.nextPage]);
+  }, [state.API_URL]);
 
   return (
-    <PokemonContext.Provider value={{ ...state , fetchPokemonByName}}>
+    <PokemonContext.Provider value={{ ...state, fetchPokemonByName, goNextPage, goPreviousPage }}>
       {children}
     </PokemonContext.Provider>
   );

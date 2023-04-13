@@ -4,18 +4,11 @@ import { useGlobalContext } from "../context/GlobalContext";
 const Pagination = () => {
   const { goNextPage, goPreviousPage } = useGlobalContext();
 
-  const goToNextPage = () => {
-    goNextPage();
-  };
-
-  const goToPreviousPage = () => {
-    goPreviousPage();
-  };
 
   return (
     <div className="paginatio">
-      {goToPreviousPage && <button onClick={goPreviousPage}>Previous</button>}
-      <button onClick={goToNextPage}>Next</button>
+      <button onClick={()=>goPreviousPage()}>Previous</button>
+      <button onClick={()=>goNextPage()}>Next</button>
     </div>
   );
 };

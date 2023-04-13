@@ -7,15 +7,31 @@
 
 .header {
   background: linear-gradient(45deg, #ff998b 0%, #ff6d88 100%);
-
   padding: 30px 20px;
-  text-align: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header button{
+  border: none;
+    font-size: 20px;
+}
+
+.header button {
+  background-image: linear-gradient(to right, #29323c, #485563, #2b5876, #4e4376);
+  color: #fff;
+  border-radius: 5px;
+}
+
+.header button:hover {
+  background-image: linear-gradient(to right, #4e4376, #485563, #2b5876, #29323c);
 }
 
 .header a {
   font-weight: bold;
   text-transform: uppercase;
-  color: #000;
+  color: #fff;
   font-size: 30px;
 }
 
@@ -158,5 +174,12 @@ button {
 @media (max-width: 576px) {
   .pokemon-container {
     grid-template-columns: repeat(1, 1fr);
+  }
+}
+
+@media (max-width: 500px) {
+  .header {
+    flex-direction: column;
+    gap: 20px;
   }
 }
