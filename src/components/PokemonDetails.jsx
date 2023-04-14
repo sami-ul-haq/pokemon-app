@@ -8,7 +8,7 @@ const PokemonDetails = () => {
   const navigate = useNavigate();
   const { name, sprites, stats, types, weight, abilities } = pokemonByName;
 
-  console.log(pokemonByName);
+  console.log("pokemon", pokemonByName);
 
   useEffect(() => {
     fetchPokemonByName(id);
@@ -16,16 +16,10 @@ const PokemonDetails = () => {
 
   return (
     <div className="pokemon-box">
-      {isLoading ? (
-        <h1>Loading Pokemon ...</h1>
-      ) : (
+      {pokemonByName ? (
         <div className="pokemon-details">
           <h1>{name}</h1>
-          <img
-            src={sprites?.front_default}
-            alt="pokemon"
-            onError={(e) => (e.target.src = "")}
-          />
+          <img src={sprites?.front_default} alt="pokemon" />
 
           <table>
             <thead>
@@ -72,6 +66,8 @@ const PokemonDetails = () => {
             </tbody>
           </table>
         </div>
+      ) : (
+        <h1>Search Pokemon</h1>
       )}
       <div className="back-button">
         <button onClick={() => navigate(-1)}>Go Back</button>

@@ -6,7 +6,7 @@ const PokemonSearch = () => {
     useGlobalContext();
   const { name, sprites, stats, types, weight, abilities } = pokemonByName;
   const [query, setQuery] = useState("");
-  const [pokemonQuery, setPokemonQuery] = useState("");
+  const [pokemonQuery, setPokemonQuery] = useState("IVYSAUR");
 
   const searchHandler = (e) => {
     e.preventDefault();
@@ -38,9 +38,7 @@ const PokemonSearch = () => {
       </div>
 
       <div className="queried-pokemon">
-        {isLoading ? (
-          <h1>Loading Pokemon ...</h1>
-        ) : (
+        { !isLoading ? (
           <div className="pokemon-details">
             <h1>{name}</h1>
             <img
@@ -56,7 +54,7 @@ const PokemonSearch = () => {
                 </tr>
               </thead>
               <tbody>
-                {stats.map((item, i) => (
+                {stats?.map((item, i) => (
                   <tr key={i}>
                     <td>{item.stat.name}</td>
                     <td>{item.base_stat}</td>
@@ -66,7 +64,7 @@ const PokemonSearch = () => {
                 <tr>
                   <td>Types:</td>
                   <td>
-                    {types.map((item, i) => (
+                    {types?.map((item, i) => (
                       <span key={i}>{item.type.name}</span>
                     ))}
                   </td>
@@ -85,7 +83,7 @@ const PokemonSearch = () => {
                 </tr>
               </thead>
               <tbody>
-                {abilities.map((item, i) => (
+                {abilities?.map((item, i) => (
                   <tr key={i}>
                     <td>{item.ability.name}</td>
                     <td>{item.slot}</td>
@@ -94,6 +92,8 @@ const PokemonSearch = () => {
               </tbody>
             </table>
           </div>
+        ) : (
+          <h1>Loading Pokemon ...</h1>
         )}
       </div>
     </div>

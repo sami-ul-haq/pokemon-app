@@ -4,11 +4,16 @@ import Pagination from "./Pagination";
 import Pokemon from "./Pokemon";
 
 const Pokemons = () => {
-  const { data, isLoading } = useGlobalContext();
-  // const [ pokemonList, setPokemonList ] = useState([]);
+  const { data, isLoading, error } = useGlobalContext();
+  
+  console.log(data);
 
   if (isLoading) {
     return <h1>Loading Pokemons ...</h1>;
+  }
+
+  if (error) {
+    return <h1>Failed to load pokemoons ...</h1>;
   }
 
   return (

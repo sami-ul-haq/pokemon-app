@@ -6,7 +6,7 @@ const InitialState = {
   isLoading: true,
   data: [],
   pokemonByName: "",
-  error: "No Pokemon Found",
+  error: "",
   nextPage: "",
   previousPage: "",
 };
@@ -15,7 +15,6 @@ export const PokemonContext = createContext();
 
 const PokemonContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(pokemonReducer, InitialState);
-  console.log(state)
 
   const FetchPokemons = async () => {
     try {

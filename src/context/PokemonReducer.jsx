@@ -7,6 +7,7 @@ const pokemonReducer = (state, action) => {
       };
 
     case "GET_POKEMON":
+      console.log(action.payload);
       return {
         ...state,
         isLoading: false,
